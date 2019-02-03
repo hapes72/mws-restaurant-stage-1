@@ -75,10 +75,11 @@ initMap = () => {
   self.newMap = L.map('map', {
         center: [40.722216, -73.987501],
         zoom: 12,
+        keyboard: false,
         scrollWheelZoom: false
       });
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-    mapboxToken: '<your MAPBOX API KEY HERE>',
+    mapboxToken: 'pk.eyJ1IjoiaHBkeSIsImEiOiJjanJkYnR4ajcwMnE1NGJtamlzMm16M2V5In0.vcw6AbTEzC1GVTtpV9_wJQ',
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -86,8 +87,22 @@ initMap = () => {
     id: 'mapbox.streets'
   }).addTo(newMap);
 
+  removeMapsAttributionFromTabOrder();
   updateRestaurants();
 }
+
+let removeMapsAttributionFromTabOrder = function(){
+    removeFromTabOrder(document.getElementsByClassName("leaflet-control-attribution")[0].children);
+    removeFromTabOrder(document.getElementsByClassName("leaflet-control-zoom-in"));
+    removeFromTabOrder(document.getElementsByClassName("leaflet-control-zoom-out"));
+}
+let removeFromTabOrder = function(elements){
+    if(!elements) return;
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].setAttribute('tabindex', '-1');
+    }
+}
+
 /* window.initMap = () => {
   let loc = {
     lat: 40.722216,
@@ -120,6 +135,7 @@ updateRestaurants = () => {
     } else {
       resetRestaurants(restaurants);
       fillRestaurantsHTML();
+      fillRestaurantsCount();
     }
   })
 }
@@ -153,6 +169,16 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 }
 
 /**
+ * Create all restaurants HTML and add them to the webpage.
+ */
+fillRestaurantsCount = (restaurants = self.restaurants) => {
+    const nrElement = document.getElementById('numberOfRestaurantsSelected');
+    nrElement.innerHTML="Filtered count: " + self.restaurants.length;
+}
+
+
+
+/**
  * Create restaurant HTML.
  */
 createRestaurantHTML = (restaurant) => {
@@ -161,6 +187,8 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = "Restaurant: " + restaurant.name;
+  image.srcset = DBHelper.imageSetUrlForRestaurant(restaurant);
   li.append(image);
 
   const name = document.createElement('h1');
@@ -177,6 +205,7 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
+  more.setAttribute('aria-label', restaurant.name);
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 
