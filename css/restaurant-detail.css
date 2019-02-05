@@ -60,22 +60,31 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
     text-transform: uppercase;
 }
 
-
-/* ====================== Navigation ====================== */
-nav {
+header {
     width: 100%;
     background-color: #252831;
     padding-left: 22px;
 }
-nav h1 {
-    margin: 0;
-}
-nav h1 a {
-    color: #fff;
-    font-size: 1.4em;
-    font-weight: 200;
-    letter-spacing: 10px;
-    text-transform: uppercase;
+
+/* ====================== Navigation ====================== */
+/*nav {*/
+    /*width: 100%;*/
+    /*background-color: #252831;*/
+    /*padding-left: 22px;*/
+/*}*/
+/*nav h1 {*/
+    /*margin: 0;*/
+/*}*/
+/*nav h1 a {*/
+    /*color: #fff;*/
+    /*font-size: 1.4em;*/
+    /*font-weight: 200;*/
+    /*letter-spacing: 10px;*/
+    /*text-transform: uppercase;*/
+/*}*/
+
+nav {
+    width: 100%;
 }
 
 #breadcrumb {
@@ -90,6 +99,7 @@ nav h1 a {
     width: 100%;
     font-style: italic;
     text-align: right;
+    height: 1.5em;
 }
 
 /* Display list items side by side */

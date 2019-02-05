@@ -15,16 +15,15 @@
 
 <body class="inside">
   <header>
-    <nav>
       <div class="heading"><a href="/" aria-label="One restaurants details">Restaurant Reviews</a></div>
-    </nav>
   </header>
 
   <main id="maincontent">
-
-    <ul id="breadcrumb" >
-      <li><a tabindex="0" href="/">Home</a></li>
-    </ul>
+    <nav aria-label="Breadcrumb" >
+        <ul id="breadcrumb">
+          <li><a tabindex="0" href="/">Home</a></li>
+        </ul>
+    </nav>
     <section class="restaurant-facts">
 
       <section id="restaurant-container">
@@ -43,7 +42,7 @@
       </section>
 
       <section id="map-container">
-        <div id="map"></div>
+        <div id="map" aria-label="location" role="application"></div>
       </section>
     </section>
 
